@@ -2,9 +2,9 @@ ifeq ($(KERNELRELEASE),)
 	KERNELDIR ?= ~/workspace/src/linux-3.14.10 
 	PWD := $(shell pwd)
 	PRINT_INC = $(PWD)/../include
-	EXTRA_CFLAG += -I $(PRINT_INC)
+	EXTRA_CFLAGS += -I $(PRINT_INC)
 modules:
-	$(MAKE) $(EXTRA_CFLAG) -C $(KERNELDIR) M=$(PWD) modules
+	$(MAKE) EXTRA_CFLAGS="$(EXTRA_CFLAGS)" -C $(KERNELDIR) M=$(PWD) modules
 modules_install:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
 clean:
