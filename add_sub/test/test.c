@@ -2,9 +2,12 @@
 #include <linux/module.h>
 #include "add_sub.h"
 
+extern int add_integer(int, int);
+extern int sub_integer(int, int);
+
 static int a = 1;
 static int b = 1;
-static AddOrSub = 1;
+static int AddOrSub = 1;
 
 static int test_init(void)
 {
@@ -13,7 +16,7 @@ static int test_init(void)
 	if(1==AddOrSub){
 		result = add_integer(a, b);
 	}else{
-		result = sub_integer(a, b);		
+		result = sub_integer(a, b);
 	}
 
 	printk(KERN_ALERT "The %s result is %d\n", AddOrSub == 1? "Add":"Sub", result);

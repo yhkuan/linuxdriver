@@ -1,11 +1,12 @@
 ifeq ($(KERNELRELEASE),)
-	KERNELDIR ?= ~/workspace/src/linux-3.14.10 
+	KERNELDIR ?= ~/workspace/src/linux-3.14.10
 	PWD := $(shell pwd)
 	SYMBOL_INC = $(PWD)/../include
-	EXTRA_CFLAG += -I $(SYMBOL_INC)
-	KBUILD_EXTRA_SYMBOLS += $(PWD)/../add_sub/Module.symvers 
+	EXTRA_CFLAGS += -I $(SYMBOL_INC)
+	KBUILD_EXTRA_SYMBOLS += $(PWD)/../add_sub/Module.symvers
+	export KBUILD_EXTRA_SYMBOLS
 modules:
-	$(MAKE) $(SYMBOL_INC) -C $(KERNELDIR) M=$(PWD) modules
+	$(MAKE) EXTRA_CFLAGS="$(EXTRA_CFLAGS)" -C $(KERNELDIR) M=$(PWD) modules
 modules_install:
 	$(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
 clean:
@@ -14,4 +15,3 @@ clean:
 else
 	obj-m := test.o
 endif
-    
